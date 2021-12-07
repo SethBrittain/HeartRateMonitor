@@ -1,6 +1,5 @@
 enum HRStates {HR_Record, HR_Update, HR_Wait};
 
-
 //Current State
 HRStates HRState;
 
