@@ -1,32 +1,34 @@
 enum HRStates {HR_Record, HR_Update, HR_Wait};
 
-// Beat Detection Threshold
-const int BEAT_THRESHOLD = 650;
-// How long to wait to enable beat detection
-const int IGNORE_TIME = 200;
 
 //Current State
-HRStates HrState;
+HRStates HRState;
 
 // Sets the initial state
 void InitializeHR() {
 	HrState = HR_Wait;
 }
 
-long lastBeatMs = 0;
-
-int HRNextState(int reading) {
+HRStates HRNextState(int reading) {
 	switch (HrState) {
 		case HR_Record:
+			if (beatCounter == 6) {
+				HRState = HR_Update;
+			}
 			break;
 		case HR_Update:
 			HrState = HR_Wait;
+			break;
 		case HR_Wait:
+			lastBeatMillis = 0;
+			totalInterval = 0;
+			beatCounter = 0;
 			if (reading > BEAT_THRESHOLD) {
 				HrState = HR_Record;
+				lastBeatMillis = millis();
 			}
 			break;
 	}
 
-	return 0;
+	return HRState;
 }
