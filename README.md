@@ -5,6 +5,7 @@ This repository is the public source for my heart rate monitor project for ECE 2
 This website uses the following software:
 - Arduino lang
 
+## Hardware
 This project uses the following hardware:
 - Arduino nano
 - LCD display
